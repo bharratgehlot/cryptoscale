@@ -1,86 +1,157 @@
-const HomePage = () => {
+import { GetServerSideProps } from "next";
+import { useState } from "react";
+
+/** Define Types for Coin */
+type Coin = {
+  id: string;
+  name: string;
+  symbol: string;
+  current_price: number;
+  price_change_percentage_24h: number | null;
+};
+
+/** Define HomePage Props */
+type HomePageProps = {
+  coins: Coin[];
+};
+
+/** Default HomePage Function */
+const HomePage = ({ coins }: HomePageProps) => {
+  const [search, setSearch] = useState("");
+
+  const filteredCoins = coins.filter((coins) => {
+    return coins.name.toLowerCase().includes(search.toLowerCase())
+  });
+
   return (
+
     <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border">
-        <div className="container py-6">
+      <div className="container py-8">
+
+        {/* Header */}
+        <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold tracking-tight">
-            CryptoScale
+            Top Cryptocurrencies
           </h1>
           <p className="mt-1 text-sm text-muted">
-            Server-side rendered crypto insights built for SEO
+            Server-side rendered market overview
           </p>
         </div>
-      </header>
 
-      {/* Hero Section */}
-      <section className="container py-16">
-        <div className="max-w-2xl">
-          <h2 className="text-4xl font-semibold leading-tight">
-            Cryptocurrency prices,
-            <span className="block text-muted">
-              rendered for search engines
-            </span>
-          </h2>
-
-          <p className="mt-6 text-base text-muted">
-            CryptoScale is a server-side rendered dashboard that generates
-            SEO-friendly pages for individual cryptocurrencies using real-time
-            market data.
-          </p>
-
-          <div className="mt-8 flex gap-4">
-            <button className="rounded-md bg-black px-5 py-2.5 text-sm font-medium text-white hover:opacity-90">
-              View Dashboard
-            </button>
-
-            <button className="rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-card">
-              Learn More
-            </button>
+        {/* Search */}
+        <div className="mb-6 flex justify-end">
+          <div className="w-full sm:max-w-sm">
+          <input
+            type="text"
+            placeholder="Search coin..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-md border border-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+          />
           </div>
         </div>
-      </section>
 
-      {/* Feature Preview */}
-      <section className="container pb-20">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="card">
-            <h3 className="text-lg font-semibold">SSR by Default</h3>
-            <p className="mt-2 text-sm text-muted">
-              All pages are rendered on the server using Next.js
-              <code className="ml-1 rounded bg-gray-100 px-1 py-0.5 text-xs">
-                getServerSideProps
-              </code>
-              .
-            </p>
-          </div>
+        {/* Table Wrapper */}
+        <div className="overflow-x-auto rounded-lg border border-border bg-white">
+          <table className="w-full border-collapse text-sm">
+            <thead className="bg-card text-muted">
+              <tr>
+                <th className="hidden sm:table-cell px-4 py-3 text-left font-medium">#</th>
+                <th className="px-4 py-3 text-left font-medium">Name</th>
+                <th className="px-4 py-3 text-left font-medium">Symbol</th>
+                <th className="px-4 py-3 text-left font-medium">Price</th>
+                <th className="px-4 py-3 text-left font-medium">24h%</th>
+              </tr>
+            </thead>
 
-          <div className="card">
-            <h3 className="text-lg font-semibold">Programmatic SEO</h3>
-            <p className="mt-2 text-sm text-muted">
-              Each cryptocurrency has its own dynamic, indexable page with
-              structured metadata.
-            </p>
-          </div>
+            <tbody>
+              {filteredCoins.map((coin, index) => (
+                <tr
+                  key={coin.id}
+                  className="border-t border-border hover:bg-gray-50"
+                >
+                  <td className="hidden sm:table-cell px-4 py-3 text-muted">
+                    {index + 1}
+                  </td>
 
-          <div className="card">
-            <h3 className="text-lg font-semibold">Clean Architecture</h3>
-            <p className="mt-2 text-sm text-muted">
-              Minimal code, clear separation of concerns, and recruiter-friendly
-              structure.
-            </p>
-          </div>
+                  <td className="px-4 py-3 font-medium">
+                    <div className="max-w-[160px] truncate sm:max-w-none">
+                      {coin.name}
+                    </div>
+                    <span className="uppercase text-xs text-muted">
+                      {coin.symbol}
+                    </span>
+                  </td>
+
+
+                  <td className="px-4 py-3 uppercase text-muted">
+                    {coin.symbol}
+                  </td>
+
+                  <td className="px-4 py-3">
+                    ${coin.current_price.toLocaleString()}
+                  </td>
+                   
+                  <td className={
+                    `px-4 py-3 font-medium ${
+                    coin.price_change_percentage_24h !== null &&
+                      coin.price_change_percentage_24h >= 0
+                      ? "text-green-600"
+                        : "text-red-600"
+                    } `
+                  }>
+                    {coin.price_change_percentage_24h !== null
+                      ? `${coin.price_change_percentage_24h.toFixed(2)}%`
+                      : "—"}
+                  </td>
+
+                </tr>
+              ))}
+
+              {filteredCoins.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    className="px-4 py-10 text-center text-sm text-muted"
+                  >
+                    No coins found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border">
-        <div className="container py-6 text-sm text-muted">
-          © {new Date().getFullYear()} CryptoScale. Built with Next.js & Tailwind.
-        </div>
-      </footer>
+      </div>
     </main>
+  
   );
 };
+
+/** API fetch and return response converted using json() method */
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch("https://api.coingecko.com/api/v3/coins/markets" +
+    "?vs_currency=usd" +
+    "&order=market_cap_desc" +
+    "&per_page=50" +
+    "&page=1" +
+    "&sparkline=false")
+
+  /** Converting raw data in json friendly */
+  const data = await res.json();
+
+  return {
+    props: {
+      coins: data.map((coin: any) => ({
+        id: coin.id,
+        name: coin.name,
+        symbol: coin.symbol,
+        current_price: coin.current_price,
+        price_change_percentage_24h: coin.price_change_percentage_24h,
+      })),
+    },
+  };
+};
+
 
 export default HomePage;
