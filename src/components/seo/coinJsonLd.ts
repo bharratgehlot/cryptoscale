@@ -13,7 +13,7 @@ export function generateCoinJsonLd({ name, symbol, price,} : CoinJsonLdInput) {
     "@context": "https://schema.org",
     "@type": "FinancialProduct",
     name,
-    tickerSymbol: symbol.toLowerCase(),
+    identifier: symbol.toUpperCase(),
     offers: {
       "@type": "Offer",
       price,
