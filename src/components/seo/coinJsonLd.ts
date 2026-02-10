@@ -11,10 +11,13 @@ type CoinJsonLdInput = {
 export function generateCoinJsonLd({ name, symbol, price,} : CoinJsonLdInput) {
   return {
     "@context": "https://schema.org",
-    "@type": "Currency",
+    "@type": "FinancialProduct",
     name,
-    symbol: symbol.toLowerCase(),
-    price,
-    priceCurrency: "USD"
+    tickerSymbol: symbol.toLowerCase(),
+    offers: {
+      "@type": "Offer",
+      price,
+      priceCurrency: "USD",
+    },
   };
 }
