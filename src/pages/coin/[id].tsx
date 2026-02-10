@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
-import { generateCoinJsonLd } from "@/components/seo/coinJsonLd";
+import CoinSeoHead from "@/components/seo/CoinSeoHead";
 
 /** Define Coin Detail Type */
 
@@ -20,40 +19,18 @@ type CoinPageProps = {
 /** Dynamic Coin Page  */
 
 const CoinPage = ({ coin }: CoinPageProps) => {
-  const title = coin
-    ? `${coin.name} (${coin.symbol.toUpperCase()}) Price Today | CryptoScale`
-    : "Coin Not Found | CryptoScale";
 
-  const description = coin
-    ? `Live ${coin.name} price today is $${coin.current_price.toLocaleString()}. View real-time price data and market insights for ${coin.name}.`
-    : "Cryptocurrency data not available.";
-
-    /** Attaching json-ld to coin */
-
-    const jsonLd = coin 
-    ? generateCoinJsonLd({
-      name: coin.name,
-      symbol: coin.symbol,
-      price: coin.current_price,
-    }) : null;
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
 
-        {jsonLd && (
-          <script 
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
-          />
-        ) }
-      </Head>
-
-     
+      {coin && (
+        <CoinSeoHead
+          name={coin.name}
+          symbol={coin.symbol}
+          price={coin.current_price}
+        />
+      )}
 
       <main className="min-h-screen bg-background">
         <div className="container py-8">
@@ -74,12 +51,12 @@ const CoinPage = ({ coin }: CoinPageProps) => {
                 </p>
               </div>
 
-                <div className="rounded-lg border border-border bg-white p-6">
-                  <p className="text-sm text-muted">Current Price</p>
-                  <p className="mt-1 text-xl font-semibold">
-                    ${coin.current_price.toLocaleString()}
-                  </p>
-                </div>
+              <div className="rounded-lg border border-border bg-white p-6">
+                <p className="text-sm text-muted">Current Price</p>
+                <p className="mt-1 text-xl font-semibold">
+                  ${coin.current_price.toLocaleString()}
+                </p>
+              </div>
 
             </>
           )}
