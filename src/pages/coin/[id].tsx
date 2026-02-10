@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { generateCoinJsonLd } from "@/components/seo/coinJsonLd";
 
 /** Define Coin Detail Type */
 
@@ -27,12 +28,32 @@ const CoinPage = ({ coin }: CoinPageProps) => {
     ? `Live ${coin.name} price today is $${coin.current_price.toLocaleString()}. View real-time price data and market insights for ${coin.name}.`
     : "Cryptocurrency data not available.";
 
+    /** Attaching json-ld to coin */
+
+    const jsonLd = coin 
+    ? generateCoinJsonLd({
+      name: coin.name,
+      symbol: coin.symbol,
+      price: coin.current_price,
+    }) : null;
+
   return (
     <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+
+        {jsonLd && (
+          <script 
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+          />
+        ) }
       </Head>
+
+     
 
       <main className="min-h-screen bg-background">
         <div className="container py-8">
