@@ -1,6 +1,8 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
 import SeoHead from "@/components/seo/SeoHead";
+import { useRouter } from "next/router";
+
 
 
 /** Define Types for Coin */
@@ -20,6 +22,7 @@ type HomePageProps = {
 /** Default HomePage Function */
 const HomePage = ({ coins }: HomePageProps) => {
   const [search, setSearch] = useState("");
+  const router = useRouter();
 
   const filteredCoins = coins.filter((coins) => {
     return coins.name.toLowerCase().includes(search.toLowerCase())
@@ -75,16 +78,20 @@ const HomePage = ({ coins }: HomePageProps) => {
 
             <tbody>
               {filteredCoins.map((coin, index) => (
+
+             
                 <tr
-                  key={coin.id}
-                  className="border-t border-border hover:bg-gray-50"
+                key={coin.id}
+                  className="border-t border-border hover:bg-gray-50 hover:cursor-pointer"
+                  onClick={() => router.push(`/coin/${coin.id}`)}
+
                 >
                   <td className="hidden sm:table-cell px-4 py-3 text-muted">
                     {index + 1}
                   </td>
 
                   <td className="px-4 py-3 font-medium">
-                    <div className="max-w-[160px] truncate sm:max-w-none">
+                    <div className="max-w-40 truncate sm:max-w-none">
                       {coin.name}
                     </div>
                     <span className="uppercase text-xs text-muted">
@@ -115,6 +122,10 @@ const HomePage = ({ coins }: HomePageProps) => {
                   </td>
 
                 </tr>
+
+
+      
+
               ))}
 
               {filteredCoins.length === 0 && (
@@ -159,6 +170,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   /** Converting raw data in json friendly */
   const data = await res.json();
+
+  if (!Array.isArray(data)) {
+    return { props: { coins: [] } };
+  }
+
+  console.log("DATA TYPE:", typeof data, Array.isArray(data));
+
 
   return {
     props: {
