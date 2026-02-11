@@ -72,6 +72,14 @@ const CoinPage = ({ coin }: CoinPageProps) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+
+
+  /** Cache function */
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=120"
+  );
+
   const { id } = context.params as { id: string };
 
   try {

@@ -129,7 +129,15 @@ const HomePage = ({ coins }: HomePageProps) => {
 };
 
 /** API fetch and return response converted using json() method */
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  /** Cache function */
+
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=120"
+  )
+
   const res = await fetch("https://api.coingecko.com/api/v3/coins/markets" +
     "?vs_currency=usd" +
     "&order=market_cap_desc" +
