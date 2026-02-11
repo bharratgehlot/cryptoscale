@@ -2,14 +2,15 @@ import Head from "next/head";
 import { generateCoinJsonLd } from "./coinJsonLd";
 
 type CoinSeoHeadProps = {
+  id: string;
   name: string;
   symbol: string;
   price: number;
 };
 
-export default function CoinSeoHead({ name, symbol, price }: CoinSeoHeadProps) {
+export default function CoinSeoHead({id, name, symbol, price }: CoinSeoHeadProps) {
   const baseUrl = "https://cryptoscale.vercel.app";
-  const coinPath = `/coin/${name.toLowerCase()}`;
+  const coinPath = `/coin/${id}`;
   const fullUrl = `${baseUrl}${coinPath}`;
   const ogImage = `${baseUrl}/og-image.png`;
 
@@ -37,7 +38,7 @@ export default function CoinSeoHead({ name, symbol, price }: CoinSeoHeadProps) {
       <link rel="canonical" href={fullUrl} />
 
       {/* OpenGraph */}
-      <meta property="og:type" content="article" />
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={fullUrl} />

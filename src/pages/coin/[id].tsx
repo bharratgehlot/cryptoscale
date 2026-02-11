@@ -26,6 +26,7 @@ const CoinPage = ({ coin }: CoinPageProps) => {
 
       {coin && (
         <CoinSeoHead
+          id={coin.id}
           name={coin.name}
           symbol={coin.symbol}
           price={coin.current_price}
@@ -43,7 +44,7 @@ const CoinPage = ({ coin }: CoinPageProps) => {
 
             <>
               <div className="mb-6">
-                <h1 className="text-2xl fond-bold tracking-tight" >
+                <h1 className="text-2xl font-bold tracking-tight" >
                   {coin.name}
                 </h1>
                 <p className="mt-1 text-sm uppercase text-muted">
