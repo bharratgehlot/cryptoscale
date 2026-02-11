@@ -8,7 +8,7 @@ type SeoHeadProps = {
 
 export default function SeoHead( { title, description, url = "/"}: SeoHeadProps) {
   const baseUrl = "https://cryptoscale.vercel.app";
-  const fullUrl = "${baseUrl}${url}";
+  const fullUrl = `${baseUrl}${url}`;
   const ogImage = `${baseUrl}/og-image.png`;
 
   return (
