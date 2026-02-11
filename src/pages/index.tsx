@@ -1,5 +1,7 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
+import SeoHead from "@/components/seo/SeoHead";
+
 
 /** Define Types for Coin */
 type Coin = {
@@ -24,8 +26,15 @@ const HomePage = ({ coins }: HomePageProps) => {
   });
 
   return (
+    <>
+
+      <SeoHead
+        title="Top 50 Cryptocurrency Prices Today | CryptoScale"
+        description="Live cryptocurrency prices, market cap data, and 24h changes for the top 50 coins. Updated server-side for SEO accuracy."
+      />
 
     <main className="min-h-screen bg-background">
+
       <div className="container py-8">
 
         {/* Header */}
@@ -125,6 +134,9 @@ const HomePage = ({ coins }: HomePageProps) => {
       </div>
     </main>
   
+    </>
+
+
   );
 };
 
