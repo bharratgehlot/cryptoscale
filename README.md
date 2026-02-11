@@ -41,7 +41,7 @@ The objective was to build a clean, production-ready SSR application that demons
 
 ---
 
-# CryptoScale — Project Structure
+## CryptoScale — Project Structure
 
 ```
 cryptoscale/
