@@ -9,10 +9,10 @@ The project demonstrates programmatic SEO, dynamic metadata generation, and prod
 
 CryptoScale fetches live cryptocurrency data from the CoinGecko API and renders:
 
-- A server-side rendered dashboard of the top 50 cryptocurrencies  
-- Dynamic, SEO-optimized coin detail pages  
-- Structured data (JSON-LD) for search engine visibility  
-- A dynamic sitemap for crawlability  
+- A server-side rendered dashboard of the top 50 cryptocurrencies
+- Dynamic, SEO-optimized coin detail pages
+- Structured data (JSON-LD) for search engine visibility
+- A dynamic sitemap for crawlability
 
 The project is optimized for technical SEO and ranking evaluation.
 
@@ -75,18 +75,21 @@ cryptoscale/
 ## ⚙️ Implementation Overview
 
 ### Part 1 — Project Setup
+
 - Initialized Next.js (Pages Router)
 - Configured Tailwind CSS
 - Cleaned boilerplate
 - Structured folder architecture
 
 ### Part 2 — SSR Dashboard
+
 - Fetch top 50 coins via CoinGecko
 - Server-side rendering for SEO
 - Client-side search filter
 - Responsive, mobile-friendly UI
 
 ### Part 3 — Programmatic SEO Pages
+
 - Dynamic route: `/coin/[id]`
 - SSR per coin page
 - Dynamic `<title>` and `<meta description>`
@@ -94,6 +97,7 @@ cryptoscale/
 - Reusable SEO architecture (`SeoHead`, `CoinSeoHead`)
 
 ### Part 4 — Technical SEO Polish
+
 - Edge caching with `Cache-Control`
 - Dynamic `/sitemap.xml`
 - Lighthouse SEO score: 4/4 (validated)
@@ -110,6 +114,7 @@ The project targets **long-tail cryptocurrency price queries**, such as:
 - “Pepe coin price USD”
 
 Each coin page dynamically generates:
+
 - SEO-friendly titles
 - Optimized meta descriptions
 - Structured data for rich search results
@@ -121,33 +126,30 @@ This improves crawlability and search engine indexing.
 ## 📸 Screenshots
 
 ### Dashboard (SSR Home Page)
-_Add screenshot here_
+
+<img width="1543" height="916" alt="Image" src="https://github.com/user-attachments/assets/f54d0add-6c5b-4aa9-aaa4-662bcdb29f86" />
 
 ### Coin Detail Page (Dynamic SEO Page)
-_Add screenshot here_
+
+<img width="1518" height="911" alt="Image" src="https://github.com/user-attachments/assets/aecc02ab-0776-41fa-b50f-c175b9c82900" />
 
 ### Lighthouse SEO Report
-_Add screenshot here_
 
+<img width="1920" height="917" alt="Image" src="https://github.com/user-attachments/assets/04da1378-2e22-4073-9c42-307652577685" />
+<img width="1920" height="917" alt="Image" src="https://github.com/user-attachments/assets/2a69a82d-9edc-4e4a-8cf1-302b8df75236" />
 
-- Dashboard overview
-
-<img src="" width="90%" />
-
-- Transaction table with filters
-
-<img src="" width="90%" />
-
-- Transaction details panel
-
-<img src="" width="90%" />
-
-- Mobile responsive view
+### Mobile View
 
 <p>
-  <img src="" width="35%" />
-  <img src="" width="35%" />
+  <img width="380" height="828" alt="Image" src="https://github.com/user-attachments/assets/b8074640-3c37-45f5-8000-f16e432b8809" />
+  <img width="383" height="827" alt="Image" src="https://github.com/user-attachments/assets/9c97350a-5fad-40e4-bf4f-1b6123cab779" />
 </p>
+
+
+### Search Panel
+
+<img width="1534" height="587" alt="Image" src="https://github.com/user-attachments/assets/e30d9cf4-acc8-4e3a-bbf2-848f0f0541bf" />
+
 
 ---
 
