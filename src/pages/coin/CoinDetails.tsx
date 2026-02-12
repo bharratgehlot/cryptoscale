@@ -1,10 +1,11 @@
+
 type CoinDetailsProps = {
   name: string;
   description: string;
-  marketCap: number;
-  volume: number;
-  supply: number;
-  change24h: number;
+  marketCap: number | null;
+  volume: number | null;
+  supply: number | null;
+  change24h: number | null;
 };
 
 export default function CoinDetails({
@@ -15,6 +16,8 @@ export default function CoinDetails({
   supply,
   change24h
 }: CoinDetailsProps) {
+
+
   if (!description) return null;
 
   return (
@@ -41,33 +44,37 @@ export default function CoinDetails({
           <div className="p-4 border rounded-lg bg-white">
             <p className="text-xs text-muted">Market Cap</p>
             <p className="mt-1 font-semibold">
-              ${marketCap.toLocaleString("en-US")}
+              {marketCap ? `$${marketCap.toLocaleString("en-US")}` : "—"}
             </p>
           </div>
 
           <div className="p-4 border rounded-lg bg-white">
             <p className="text-xs text-muted">24h Volume</p>
             <p className="mt-1 font-semibold">
-              ${volume.toLocaleString("en-US")}
+              {volume ? `$${volume.toLocaleString("en-US")}` : "—"}
             </p>
           </div>
 
           <div className="p-4 border rounded-lg bg-white">
             <p className="text-xs text-muted">Circulating Supply</p>
             <p className="mt-1 font-semibold">
-              {supply.toLocaleString("en-US")}
+              {supply ? supply.toLocaleString("en-US") : "—"}
             </p>
           </div>
 
           <div className="p-4 border rounded-lg bg-white">
             <p className="text-xs text-muted">24h Change</p>
             <p
-              className={`mt-1 font-semibold ${change24h >= 0
-                  ? "text-green-600"
-                  : "text-red-600"
+              className={`mt-1 font-semibold ${change24h !== undefined && change24h !== null
+                  ? change24h >= 0
+                    ? "text-green-600"
+                    : "text-red-600"
+                  : ""
                 }`}
             >
-              {change24h.toFixed(2)}%
+              {change24h !== undefined && change24h !== null
+                ? `${change24h.toFixed(2)}%`
+                : "—"}
             </p>
           </div>
         </div>

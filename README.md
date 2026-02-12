@@ -145,7 +145,6 @@ This improves crawlability and search engine indexing.
   <img width="383" height="827" alt="Image" src="https://github.com/user-attachments/assets/9c97350a-5fad-40e4-bf4f-1b6123cab779" />
 </p>
 
-
 ### Search Panel
 
 <img width="1534" height="587" alt="Image" src="https://github.com/user-attachments/assets/e30d9cf4-acc8-4e3a-bbf2-848f0f0541bf" />
